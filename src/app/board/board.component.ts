@@ -32,10 +32,22 @@ export class BoardComponent implements OnInit {
       this.squares.splice(index, 1, this.player);
       this.xIsNext = !this.xIsNext;
       this.winner = this.calculateWinner();
+      if(this.winner === null && this.calculateFull()){
+        alert("Match ended in draw!");
+        this.newGame();
+      }
       return;
     }
     alert('You are clicking on an already taken square!')
-}
+  }
+
+  calculateFull(): boolean{
+    for(let i=0;i<this.squares.length;i++){
+      if(this.squares[i] === null)
+        return false;
+    }
+    return true;
+  }
 
   calculateWinner() {
     const lines = [
